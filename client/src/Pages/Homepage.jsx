@@ -76,6 +76,10 @@ const Home = () => {
             <Link to="/emergency" className="text-blue-600 font-medium hover:underline">
               {t("emergency_contact")}
             </Link>
+            <Link to="/FAQPage" className="text-blue-600 font-medium hover:underline">
+              {t("FAQ")}
+            </Link>
+
           </nav>
 
           {/* Right - Sign In and Language */}
@@ -124,10 +128,10 @@ const Home = () => {
 
       {/* Hero Section */}
       <section className="flex flex-col items-center justify-center py-20 px-6">
-        <h2 className="text-4xl font-bold text-blue-800 mb-4">
+        <h2 className="text-4xl font-bold text-blue-800 dark:text-blue-300 mb-4">
           {t("hero_heading")}
         </h2>
-        <p className="text-gray-700 text-lg max-w-xl mb-6">
+        <p className="text-gray-700 dark:text-gray-300 text-lg max-w-xl mb-6">
           {t("hero_description")}
         </p>
         <div className="space-y-4 md:space-x-6 md:space-y-0 flex flex-col md:flex-row justify-center">
@@ -141,9 +145,9 @@ const Home = () => {
 
       {/* CTA Section */}
       <section className=" p-8 max-w-3xl mx-auto text-center mt-10">
-        <h3 className="text-2xl font-bold text-blue-800 mb-2">{t("cta_heading")}</h3>
+        <h3 className="text-2xl font-bold text-blue-800 dark:text-blue-300 mb-2">{t("cta_heading")}</h3>
         <p className="text-gray-600 mb-4">{t("cta_description")}</p>
-        <Link to="/realtime-alerts">
+        <Link to="/alertPage">
           <button className="bg-orange-500 text-white px-6 py-3 rounded-lg font-medium hover:bg-orange-600 transition">
             {t("check_alerts")}
           </button>
@@ -154,8 +158,8 @@ const Home = () => {
       <section className=" py-12 px-6">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center">
           <div className="md:w-1/2 mb-8 md:mb-0 text-left">
-            <h3 className="text-2xl font-bold text-blue-800 mb-4">{t("precaution_heading")}</h3>
-            <p className="text-gray-700 mb-6 whitespace-pre-line">{t("precaution_text")}</p>
+            <h3 className="text-2xl font-bold text-blue-800 dark:text-blue-300 mb-4">{t("precaution_heading")}</h3>
+            <p className="text-gray-700 dark:text-gray-300 mb-6 whitespace-pre-line">{t("precaution_text")}</p>
             <Link to="/PrecautionsPage">
               <button className="bg-orange-500 text-white px-6 py-3 rounded-lg font-medium hover:bg-orange-600 transition">
                 {t("precaution")}
