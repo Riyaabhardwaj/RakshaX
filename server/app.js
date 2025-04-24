@@ -15,8 +15,10 @@ app.use(express.urlencoded({ extended: true }))
 app.use(cookieParser())
 
 import userRouter from './routes/user.route.js'
+import mlRouter from './routes/ml.route.js'
 
 app.use("/api/user", userRouter)
+app.use("/api/ml", mlRouter)
 
 
 app.use(errorHandler)
