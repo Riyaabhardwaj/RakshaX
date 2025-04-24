@@ -1,0 +1,17 @@
+{
+    "app_name": "RakshaX",
+    "home": "Home",
+    "about": "About",
+    "emergency_contact": "Emergency Contact",
+    "sign_in": "Sign In",
+    "find_help": "Find Help",
+    "check_alerts": "Check Nearby Alerts",
+    "precaution": "Precaution",
+    "hero_heading": "See danger before it sees you.",
+    "hero_description": "Real-time alerts, disaster predictions based on your location, nearby shelter guidance, and safety tips at your fingertips.",
+    "cta_heading": "Stay Safe. Stay Informed.",
+    "cta_description": "Get alerts based on your location and stay ahead of emergencies. Check safe routes and connect with nearby help centers instantly.",
+    "precaution_heading": "Don’t wait for disaster to strike — take precautions now.",
+    "precaution_text": "Disasters can strike without warning,\nbut with the right precautions, we stay ahead.\nBe prepared. Be safe. Be smart."
+  }
+  

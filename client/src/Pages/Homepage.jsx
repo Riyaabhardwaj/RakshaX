@@ -1,32 +1,122 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
-const Home = () => {
+const Homepage = () => {
+  const { t, i18n } = useTranslation();
+
+  const [darkMode, setDarkMode] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [selectedLanguage, setSelectedLanguage] = useState("English");
+
+  useEffect(() => {
+    const saved = localStorage.getItem("theme");
+    if (saved === "dark" || (!saved && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
+      document.documentElement.classList.add("dark");
+      setDarkMode(true);
+    } else {
+      document.documentElement.classList.remove("dark");
+      setDarkMode(false);
+    }
+
+    // Load saved language
+    const savedLang = localStorage.getItem("lang");
+    if (savedLang) {
+      i18n.changeLanguage(savedLang);
+      const displayName = { en: "English", hi: "Hindi", ta: "Tamil" }[savedLang];
+      setSelectedLanguage(displayName);
+    }
+  }, []);
+
+  const toggleDarkMode = () => {
+    const isDark = !darkMode;
+    setDarkMode(isDark);
+    if (isDark) {
+      document.documentElement.classList.add("dark");
+      localStorage.setItem("theme", "dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+      localStorage.setItem("theme", "light");
+    }
+  };
+
+  const handleLanguageChange = (language) => {
+    setSelectedLanguage(language);
+    setIsDropdownOpen(false);
+
+    const langCode = {
+      English: "en",
+      Hindi: "hi",
+      Tamil: "ta"
+    }[language];
+
+    i18n.changeLanguage(langCode);
+    localStorage.setItem("lang", langCode);
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-white via-blue-50 to-white text-center">
       {/* Navbar */}
       <header className="bg-white shadow-md py-4">
         <div className="container mx-auto flex justify-between items-center px-6">
-          <h1 className="text-2xl font-bold text-blue-600">RakshaX</h1>
+          {/* Logo */}
+          <img
+            src="https://yourlogo.url/logo.png"
+            alt="RakshaX Logo"
+            className="w-10 h-10 mr-2"
+          />
+          <h1 className="text-2xl font-bold text-blue-600">{t("app_name")}</h1>
           <nav className="space-x-6 flex-1 flex justify-center">
             <Link to="/" className="text-blue-600 font-medium hover:underline">
-              Home
+              {t("home")}
             </Link>
             <Link to="/about" className="text-blue-600 font-medium hover:underline">
-              About
+              {t("about")}
             </Link>
             <Link to="/emergency" className="text-blue-600 font-medium hover:underline">
-              Emergency Contact
+              {t("emergency_contact")}
             </Link>
-            
           </nav>
-           {/* Right - Sign In and Language */}
-           <div className="flex items-center space-x-4">
+
+          {/* Right - Sign In and Language */}
+          <div className="flex items-center space-x-4">
             <button className="text-blue-600 font-medium hover:underline">
-              Sign In
+              {t("sign_in")}
             </button>
-            <button className="text-xl" title="Change Language">
-              🌐
+
+            {/* Change Language Dropdown */}
+            <div className="relative">
+              <button
+                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                className="text-xl"
+                title="Change Language"
+              >
+                🌐
+              </button>
+
+              {isDropdownOpen && (
+                <div className="absolute right-0 mt-2 w-40 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg shadow-lg">
+                  <ul className="py-2">
+                    {["English", "Hindi", "Tamil"].map((lang) => (
+                      <li
+                        key={lang}
+                        onClick={() => handleLanguageChange(lang)}
+                        className="px-4 py-2 text-gray-900 dark:text-gray-100 cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-600"
+                      >
+                        {lang}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
+
+            <button
+              onClick={toggleDarkMode}
+              className="text-xl hover:scale-110 transition"
+              title="Toggle Theme"
+            >
+              {darkMode ? "☀" : "🌙"}
             </button>
           </div>
         </div>
@@ -35,22 +125,15 @@ const Home = () => {
       {/* Hero Section */}
       <section className="flex flex-col items-center justify-center py-20 px-6">
         <h2 className="text-4xl font-bold text-blue-600 mb-4">
-          See danger before it sees you.
+          {t("hero_heading")}
         </h2>
         <p className="text-gray-700 text-lg max-w-xl mb-6">
-          Real-time alerts, disaster predictions based on your location, nearby shelter guidance, and safety tips at your fingertips.
+          {t("hero_description")}
         </p>
-
         <div className="space-y-4 md:space-x-6 md:space-y-0 flex flex-col md:flex-row justify-center">
-          
-          <Link to="/safeShelters">
+          <Link to="/SafeShelters">
             <button className="px-6 py-3 bg-green-600 text-white rounded-xl shadow hover:bg-green-700 transition">
-              Safe Shelters Map
-            </button>
-          </Link>
-          <Link to="/precautionsPage">
-            <button className="px-6 py-3 bg-orange-500 text-white rounded-xl shadow hover:bg-orange-600 transition">
-              General Precautions
+              {t("find_help")}
             </button>
           </Link>
         </div>
@@ -58,18 +141,38 @@ const Home = () => {
 
       {/* CTA Section */}
       <section className="bg-white rounded-2xl shadow-md p-8 max-w-3xl mx-auto text-center mt-10">
-        <h3 className="text-2xl font-bold text-gray-800 mb-2">Stay Safe. Stay Informed.</h3>
-        <p className="text-gray-600 mb-4">
-          Get alerts based on your location and stay ahead of emergencies. Check safe routes and connect with nearby help centers instantly.
-        </p>
-        <Link to="/realtimeAlerts">
+        <h3 className="text-2xl font-bold text-gray-800 mb-2">{t("cta_heading")}</h3>
+        <p className="text-gray-600 mb-4">{t("cta_description")}</p>
+        <Link to="/realtime-alerts">
           <button className="bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700 transition">
-            Check Nearby Alerts
+            {t("check_alerts")}
           </button>
         </Link>
+      </section>
+
+      {/* Precautions Section */}
+      <section className="bg-blue-100 py-12 px-6">
+        <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center">
+          <div className="md:w-1/2 mb-8 md:mb-0 text-left">
+            <h3 className="text-2xl font-bold text-blue-800 mb-4">{t("precaution_heading")}</h3>
+            <p className="text-gray-700 mb-6 whitespace-pre-line">{t("precaution_text")}</p>
+            <Link to="/PrecautionsPage">
+              <button className="bg-orange-500 text-white px-6 py-3 rounded-lg font-medium hover:bg-orange-600 transition">
+                {t("precaution")}
+              </button>
+            </Link>
+          </div>
+          <div className="md:w-1/2 flex justify-center">
+            <img
+              src="https://app.visily.ai/projects/9d315853-6f37-4134-b12b-5502779e3d0c/boards/1824049/elements/784475647"
+              alt="Precaution"
+              className="rounded-xl shadow-md"
+            />
+          </div>
+        </div>
       </section>
     </div>
   );
 };
 
-export default Home;
+export default Homepage;
