@@ -6,6 +6,8 @@ import Emergency from './Pages/EmergencyContact';
 import Precaution from './Pages/Precaution';
 import AlertPage from './Pages/AlertPage';
 import SafeShelters from './Pages/SafeShelters';
+import Register from "./Pages/Register";
+import SignIn from "./Pages/SignIn";
 
 function App() {
   return (
@@ -18,6 +20,8 @@ function App() {
         <Route path="/precautionsPage" element={<Precaution />} />
         <Route path="/alertpage" element={<AlertPage />} />
         <Route path="/safeShelters" element={<SafeShelters />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/signin" element={<SignIn />} />
       </Routes>
     </Router>
   );
