@@ -1,11 +1,13 @@
 {
     "app_name": "RakshaX",
+    "register": "Register",
     "home": "Home",
     "about": "About",
-    "emergency_contact": "Emergency Contact",
+
+    "contact": "Contact",
     "sign_in": "Sign In",
     "find_help": "Find Help",
-    "check_alerts": "Check Nearby Alerts",
+    "Predict Alerts": "Predict Disaster",
     "precaution": "Precaution",
     "hero_heading": "See danger before it sees you.",
     "hero_description": "Real-time alerts, disaster predictions based on your location, nearby shelter guidance, and safety tips at your fingertips.",
